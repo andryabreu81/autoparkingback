@@ -11,7 +11,7 @@ export class BrandsService {
   ) {}
 
   async getBrands(): Promise<Brand[]> {
-    // Retorna solo las marcas activas, por ejemplo
+    // Retorna solo las marcas activas, por ejemplo, si tienes un campo 'active' en tu entidad Brand
     return await this.brandRepository.find({
       where: { active: 1 },
       order: { brandName: 'ASC' }

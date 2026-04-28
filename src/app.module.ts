@@ -13,6 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 //entities
 import { Brand } from './brands/brands.entity';
+import { User } from './users/users.entity';
 
 
 
@@ -24,7 +25,7 @@ import { Brand } from './brands/brands.entity';
       username: 'postgres',
       password: '20111981',
       database: 'db_autoparking',
-      entities: [Brand], // O [__dirname + '/**/*.entity{.ts,.js}']
+      entities: [Brand, User], // O [__dirname + '/**/*.entity{.ts,.js}']
       synchronize: false, // Mantenlo en false si la tabla ya existe
     })],
   controllers: [AppController],
