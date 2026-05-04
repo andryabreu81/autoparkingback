@@ -18,4 +18,17 @@ export class BrandsController {
     
     return response;
   }
+
+  @Post('/addbrands')
+  async addBrands(@Body() brandData: { brandCode: string; brandName: string; vehicleTypeId: number }): Promise<any> {
+    let addBrand = this.brandsService.addBrands(brandData.brandCode, brandData.brandName, brandData.vehicleTypeId);
+
+    let response = {
+      statusCode: 200,
+      message: 'Marca agregada exitosamente',
+      data: await addBrand
+    };
+
+    return response;
+  }
 }

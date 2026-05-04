@@ -17,4 +17,10 @@ export class BrandsService {
       order: { brandName: 'ASC' }
     });
   }
+
+  async addBrands(brandCode: string, brandName: string, vehicleTypeId: number): Promise<Brand> {
+    const newBrand = this.brandRepository.create({ brandCode, brandName, vehicleTypeId });
+
+    return await this.brandRepository.save(newBrand);
+  }
 }
