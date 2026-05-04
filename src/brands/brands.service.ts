@@ -10,6 +10,7 @@ export class BrandsService {
     private readonly brandRepository: Repository<Brand>,
   ) {}
 
+  //lista de marcas activas ordenadas por nombre
   async getBrands(): Promise<Brand[]> {
     // Retorna solo las marcas activas, por ejemplo, si tienes un campo 'active' en tu entidad Brand
     return await this.brandRepository.find({
@@ -18,6 +19,16 @@ export class BrandsService {
     });
   }
 
+  // Obtener una marca por su ID
+  async findBrand(brandId: number): Promise<Brand | null> {
+
+    return await this.brandRepository.findOne({ 
+      where: { id: brandId } 
+    });
+
+  }
+
+  // Agregar una nueva marca
   async addBrands(brandCode: string, brandName: string, vehicleTypeId: number): Promise<Brand> {
     const newBrand = this.brandRepository.create({ brandCode, brandName, vehicleTypeId });
 

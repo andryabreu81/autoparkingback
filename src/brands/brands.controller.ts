@@ -19,8 +19,38 @@ export class BrandsController {
     return response;
   }
 
+  @Get('/findbrand')
+  async findBrand(@Body() brandData: { brandId: number }) {
+    let brand = await this.brandsService.findBrand(brandData.brandId);
+
+    let response = {};
+
+    console.log(brand?.id);
+
+    if (brand?.id != null) {
+     
+        response = {
+          statusCode: 200,
+          message: 'Marca obtenida exitosamente',
+          data: await brand
+        };
+    }else{
+          response = {
+          statusCode: 404,
+          message: 'Marca no encontrada',
+          data: null
+        };
+    }
+
+    return response;
+  }
+
   @Post('/addbrands')
-  async addBrands(@Body() brandData: { brandCode: string; brandName: string; vehicleTypeId: number }): Promise<any> {
+  async addBrands(@Body() brandData: { 
+    brandCode: string; 
+    brandName: string; 
+    vehicleTypeId: number }): Promise<any> {
+
     let addBrand = this.brandsService.addBrands(brandData.brandCode, brandData.brandName, brandData.vehicleTypeId);
 
     let response = {
