@@ -14,6 +14,15 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
+  // Obtener un usuario por su ID
+  async findUser(userId: number): Promise<User | null> {
+
+    return await this.usersRepository.findOne({ 
+      where: { id: userId } 
+    });
+
+  }
+
   async addUsers(
     name: string, 
     email: string, 

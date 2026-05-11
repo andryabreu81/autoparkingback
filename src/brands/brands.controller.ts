@@ -19,13 +19,12 @@ export class BrandsController {
     return response;
   }
 
-  @Get('/findbrand')
+  @Post('/findbrand')
   async findBrand(@Body() brandData: { brandId: number }) {
+    
     let brand = await this.brandsService.findBrand(brandData.brandId);
 
     let response = {};
-
-    console.log(brand?.id);
 
     if (brand?.id != null) {
      

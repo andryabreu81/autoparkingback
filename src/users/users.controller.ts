@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  //obtener lista de usuarios
   @Get('/users')
   async getUsers(): Promise<any> {
     let userList = this.usersService.getUsers();
@@ -18,6 +19,33 @@ export class UsersController {
     return response;
   }
 
+  // buscar un usuario especifico
+  @Post('/findUser')
+  async findUser(@Body() brandData: { userId: number }) {
+    
+    let usuario = await this.usersService.findUser(brandData.userId);
+
+    let response = {};
+
+    if (usuario?.id != null) {
+     
+        response = {
+          statusCode: 200,
+          message: 'Usuario obtenido exitosamente',
+          data: await usuario
+        };
+    }else{
+          response = {
+          statusCode: 404,
+          message: 'Usuario no encontrado',
+          data: null
+        };
+    }
+
+    return response;
+  }
+
+  // agregar un usuario
   @Post('/addusers')
   async addUsers(@Body() userData: { 
     name: string; 
