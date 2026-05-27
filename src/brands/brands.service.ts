@@ -15,6 +15,7 @@ export class BrandsService {
     // Retorna solo las marcas activas, por ejemplo, si tienes un campo 'active' en tu entidad Brand
     return await this.brandRepository.find({
       where: { active: 1 },
+      relations: ['vehicletype'],
       order: { brandName: 'ASC' }
     });
   }

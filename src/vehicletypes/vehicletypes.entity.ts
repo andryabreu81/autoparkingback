@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Brand } from '../brands/brands.entity';
 
 @Entity({ name: 'tb_vehicle_types' })
 export class VehicleType {
@@ -19,4 +20,8 @@ export class VehicleType {
 
   @UpdateDateColumn({ name: 'modified_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   modifiedAt: Date;
+
+  // CORRECCIÓN: Apuntar a brand.vehicletype y renombrar la propiedad a 'brands'
+  @OneToMany(() => Brand, (brand) => brand.vehicletype)
+  brands: Brand[];
 }
