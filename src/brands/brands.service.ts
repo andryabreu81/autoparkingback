@@ -24,7 +24,8 @@ export class BrandsService {
   async findBrand(brandId: number): Promise<Brand | null> {
 
     return await this.brandRepository.findOne({ 
-      where: { id: brandId } 
+      where: { id: brandId },
+      relations: ['vehicletype'] 
     });
 
   }
