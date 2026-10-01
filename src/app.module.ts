@@ -15,21 +15,22 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Brand } from './brands/brands.entity';
 import { User } from './users/users.entity';
 import { VehicleType } from './vehicletypes/vehicletypes.entity';
+import { Model } from './models/models.entity';
 
 
 
 @Module({
-  imports: [BrandsModule, ModelsModule, VehiclesModule, VehicletypesModule, UsersModule, PaymentsModule,TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '20111981',
-      database: 'db_autoparking',
-      entities: [Brand, User, VehicleType], // O [__dirname + '/**/*.entity{.ts,.js}']
-      synchronize: false, // Mantenlo en false si la tabla ya existe
-    })],
+  imports: [BrandsModule, ModelsModule, VehiclesModule, VehicletypesModule, UsersModule, PaymentsModule, TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: 'postgres',
+    password: '20111981',
+    database: 'db_autoparking',
+    entities: [Brand, User, VehicleType, Model], // O [__dirname + '/**/*.entity{.ts,.js}']
+    synchronize: false, // Mantenlo en false si la tabla ya existe
+  })],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
