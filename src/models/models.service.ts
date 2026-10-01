@@ -29,4 +29,11 @@ export class ModelsService {
     });
 
   }
+
+  // Agregar un nuevo modelo
+  async addModels(modelName: string, modelCode: string, vehicleTypeId: number): Promise<Model> {
+    const newModel = this.modelRepository.create({ modelName, modelCode, vehicleTypeId });
+
+    return await this.modelRepository.save(newModel);
+  }
 }

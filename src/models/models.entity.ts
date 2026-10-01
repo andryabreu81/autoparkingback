@@ -18,6 +18,9 @@ export class Model {
   @Column({ default: 1 })
   active: number;
 
+  @Column({ name: 'vehicle_type_id', nullable: true })
+  vehicleTypeId: number;
+
   @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 

@@ -43,4 +43,23 @@ export class ModelsController {
 
     return response;
   }
+
+  //metodo para agregar un nuevo modelo
+  @Post('/addmodels')
+  async addModels(@Body() modelData: {
+    modelName: string;
+    modelCode: string;
+    vehicleTypeId: number;
+  }): Promise<any> {
+
+    let addModel = this.modelsService.addModels(modelData.modelName, modelData.modelCode, modelData.vehicleTypeId);
+
+    let response = {
+      statusCode: 200,
+      message: 'Modelo agregado exitosamente',
+      data: await addModel
+    };
+
+    return response;
+  }
 }
