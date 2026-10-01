@@ -36,4 +36,17 @@ export class ModelsService {
 
     return await this.modelRepository.save(newModel);
   }
+
+  // Editar un modelo
+  async editModel(modelId: number, modelName: string, modelCode: string, vehicleTypeId: number): Promise<Model | null> {
+    const updateData: Partial<Model> = { modelName, modelCode, vehicleTypeId };
+    await this.modelRepository.update(modelId, updateData);
+    return await this.findModel(modelId);
+  }
+
+  // Eliminar un modelo (lógico)
+  async deleteModel(modelId: number): Promise<boolean> {
+    const result = await this.modelRepository.update(modelId, { active: 0 });
+    return (result.affected ?? 0) > 0;
+  }
 }

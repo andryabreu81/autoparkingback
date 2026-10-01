@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Delete } from '@nestjs/common';
 import { ModelsService } from './models.service';
 
 @Controller()
@@ -60,6 +60,58 @@ export class ModelsController {
       data: await addModel
     };
 
+    return response;
+  }
+
+  @Put('/editmodel')
+  async editModel(@Body() modelData: { 
+    modelId: number;
+    modelName: string; 
+    modelCode: string; 
+    vehicleTypeId: number 
+  }): Promise<any> {
+    let editedModel = await this.modelsService.editModel(
+      modelData.modelId,
+      modelData.modelName,
+      modelData.modelCode,
+      modelData.vehicleTypeId
+    );
+
+    let response = {};
+    if (editedModel) {
+      response = {
+        statusCode: 200,
+        message: 'Modelo editado exitosamente',
+        data: editedModel
+      };
+    } else {
+      response = {
+        statusCode: 404,
+        message: 'Modelo no encontrado',
+        data: null
+      };
+    }
+    return response;
+  }
+
+  @Delete('/deletemodel')
+  async deleteModel(@Body() modelData: { modelId: number }): Promise<any> {
+    let result = await this.modelsService.deleteModel(modelData.modelId);
+
+    let response = {};
+    if (result) {
+      response = {
+        statusCode: 200,
+        message: 'Modelo eliminado exitosamente',
+        data: null
+      };
+    } else {
+      response = {
+        statusCode: 404,
+        message: 'Modelo no encontrado',
+        data: null
+      };
+    }
     return response;
   }
 }

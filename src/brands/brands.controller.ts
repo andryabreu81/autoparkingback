@@ -60,4 +60,56 @@ export class BrandsController {
 
     return response;
   }
+
+  @Put('/editbrand')
+  async editBrand(@Body() brandData: { 
+    brandId: number;
+    brandCode: string; 
+    brandName: string; 
+    vehicleTypeId: number 
+  }): Promise<any> {
+    let editedBrand = await this.brandsService.editBrand(
+      brandData.brandId,
+      brandData.brandCode,
+      brandData.brandName,
+      brandData.vehicleTypeId
+    );
+
+    let response = {};
+    if (editedBrand) {
+      response = {
+        statusCode: 200,
+        message: 'Marca editada exitosamente',
+        data: editedBrand
+      };
+    } else {
+      response = {
+        statusCode: 404,
+        message: 'Marca no encontrada',
+        data: null
+      };
+    }
+    return response;
+  }
+
+  @Delete('/deletebrand')
+  async deleteBrand(@Body() brandData: { brandId: number }): Promise<any> {
+    let result = await this.brandsService.deleteBrand(brandData.brandId);
+
+    let response = {};
+    if (result) {
+      response = {
+        statusCode: 200,
+        message: 'Marca eliminada exitosamente',
+        data: null
+      };
+    } else {
+      response = {
+        statusCode: 404,
+        message: 'Marca no encontrada',
+        data: null
+      };
+    }
+    return response;
+  }
 }

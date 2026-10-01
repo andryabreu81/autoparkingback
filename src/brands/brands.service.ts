@@ -36,4 +36,17 @@ export class BrandsService {
 
     return await this.brandRepository.save(newBrand);
   }
+
+  // Editar una marca
+  async editBrand(brandId: number, brandCode: string, brandName: string, vehicleTypeId: number): Promise<Brand | null> {
+    const updateData: Partial<Brand> = { brandCode, brandName, vehicleTypeId };
+    await this.brandRepository.update(brandId, updateData);
+    return await this.findBrand(brandId);
+  }
+
+  // Eliminar una marca (lógico)
+  async deleteBrand(brandId: number): Promise<boolean> {
+    const result = await this.brandRepository.update(brandId, { active: 0 });
+    return (result.affected ?? 0) > 0;
+  }
 }
