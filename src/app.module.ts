@@ -16,6 +16,7 @@ import { Brand } from './brands/brands.entity';
 import { User } from './users/users.entity';
 import { VehicleType } from './vehicletypes/vehicletypes.entity';
 import { Model } from './models/models.entity';
+import { Vehicle } from './vehicles/vehicles.entity';
 
 
 
@@ -27,7 +28,7 @@ import { Model } from './models/models.entity';
     username: 'postgres',
     password: '20111981',
     database: 'db_autoparking',
-    entities: [Brand, User, VehicleType, Model], // O [__dirname + '/**/*.entity{.ts,.js}']
+    entities: [Brand, User, VehicleType, Model, Vehicle], // O [__dirname + '/**/*.entity{.ts,.js}']
     synchronize: false, // Mantenlo en false si la tabla ya existe
   })],
   controllers: [AppController],
