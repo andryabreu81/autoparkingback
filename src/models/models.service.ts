@@ -19,4 +19,14 @@ export class ModelsService {
       order: { modelName: 'ASC' }
     });
   }
+
+  // Obtener un modelo por su ID
+  async findModel(modelId: number): Promise<Model | null> {
+
+    return await this.modelRepository.findOne({
+      where: { id: modelId },
+      relations: ['vehicletype']
+    });
+
+  }
 }
