@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'tb_users' })
-export class User {
+export class Login {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
