@@ -71,7 +71,7 @@ export class UsersController {
     return response;
   }
 
-  // editar un usuario
+  // Metodo para editar un usuario
   @Put('/edituser')
   async editUser(@Body() userData: { 
     userId: number;
@@ -120,7 +120,7 @@ export class UsersController {
     return response;
   }
 
-  // eliminar un usuario
+  // Metodo para eliminar un usuario
   @Delete('/deleteuser')
   async deleteUser(@Body() userData: { userId: number }): Promise<any> {
     let result = await this.usersService.deleteUser(userData.userId);
