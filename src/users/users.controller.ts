@@ -58,9 +58,10 @@ export class UsersController {
     floor:number, 
     leader:string,
     login:string,
-    password:string }): Promise<any> {
+    password:string,
+    active:number }): Promise<any> {
 
-    let addUser = this.usersService.addUsers(userData.name, userData.email, userData.lastname, userData.role_id, userData.identification_id, userData.phone_number, userData.apto_number, userData.floor, userData.leader, userData.login, userData.password);
+    let addUser = this.usersService.addUsers(userData.name, userData.email, userData.lastname, userData.role_id, userData.identification_id, userData.phone_number, userData.apto_number, userData.floor, userData.leader, userData.login, userData.password, userData.active);
 
     let response = {
       statusCode: 200,

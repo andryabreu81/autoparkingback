@@ -34,9 +34,10 @@ export class UsersService {
     floor: number, 
     leader: string,
     login: string,
-    password:string): Promise<User> {
+    password:string,
+    active:number): Promise<User> {
 
-    const newUser = this.usersRepository.create({ name, email, lastname, roleId, identificationId, phoneNumber, aptoNumber, floor, leader, login, password });
+    const newUser = this.usersRepository.create({ name, email, lastname, roleId, identificationId, phoneNumber, aptoNumber, floor, leader, login, password, active });
 
     return await this.usersRepository.save(newUser);
   }
