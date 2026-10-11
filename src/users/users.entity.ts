@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 @Entity({ name: 'tb_users' })
 export class User {
   @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
+  id: string; // <--- Cambiado de number a string
 
   @Column({ name: 'identification_id', type: 'int4' })
   identificationId: number;
@@ -38,7 +38,6 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   login: string;
 
-  // Es recomendable manejar el password con precaución (puedes usar select: false para que no se traiga por defecto)
   @Column({ type: 'varchar', nullable: true, select: false })
   password?: string;
 

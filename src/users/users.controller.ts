@@ -5,7 +5,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  //obtener lista de usuarios
+  // obtener lista de usuarios
   @Get('/users')
   async getUsers(): Promise<any> {
     let userList = this.usersService.getUsers();
@@ -21,21 +21,20 @@ export class UsersController {
 
   // buscar un usuario especifico
   @Post('/findUser')
-  async findUser(@Body() brandData: { userId: number }) {
-    
-    let usuario = await this.usersService.findUser(brandData.userId);
+  async findUser(@Body() brandData: { userId: number | string }) { // Permitimos number o string en el body
+    // Convertimos a string de forma segura por si llega como número
+    let usuario = await this.usersService.findUser(brandData.userId.toString());
 
     let response = {};
 
     if (usuario?.id != null) {
-     
         response = {
           statusCode: 200,
           message: 'Usuario obtenido exitosamente',
           data: await usuario
         };
-    }else{
-          response = {
+    } else {
+        response = {
           statusCode: 404,
           message: 'Usuario no encontrado',
           data: null
@@ -51,17 +50,31 @@ export class UsersController {
     name: string; 
     email: string; 
     lastname: string; 
-    role_id: number ; 
-    identification_id:number, 
-    phone_number:number, 
-    apto_number:string, 
-    floor:number, 
-    leader:string,
-    login:string,
-    password:string,
-    active:number }): Promise<any> {
+    role_id: number; 
+    identification_id: number; 
+    phone_number: number; 
+    aptoNumber: string; 
+    floor: number; 
+    leader: string;
+    login: string;
+    password: string;
+    active: number; 
+  }): Promise<any> {
 
-    let addUser = this.usersService.addUsers(userData.name, userData.email, userData.lastname, userData.role_id, userData.identification_id, userData.phone_number, userData.apto_number, userData.floor, userData.leader, userData.login, userData.password, userData.active);
+    let addUser = this.usersService.addUsers(
+      userData.name, 
+      userData.email, 
+      userData.lastname, 
+      userData.role_id, 
+      userData.identification_id, 
+      userData.phone_number, 
+      userData.aptoNumber, 
+      userData.floor, 
+      userData.leader, 
+      userData.login, 
+      userData.password, 
+      userData.active
+    );
 
     let response = {
       statusCode: 200,
@@ -75,28 +88,28 @@ export class UsersController {
   // Metodo para editar un usuario
   @Put('/edituser')
   async editUser(@Body() userData: { 
-    userId: number;
+    userId: number | string; // Permitimos number o string
     name: string; 
     email: string; 
     lastname: string; 
     role_id: number; 
     identification_id: number; 
     phone_number: number; 
-    apto_number: string; 
+    aptoNumber: string; 
     floor: number; 
     leader: string;
     login: string;
     password?: string;
   }): Promise<any> {
     let editedUser = await this.usersService.editUser(
-      userData.userId,
+      userData.userId.toString(), // Convertimos a string
       userData.name, 
       userData.email, 
       userData.lastname, 
       userData.role_id, 
       userData.identification_id, 
       userData.phone_number, 
-      userData.apto_number, 
+      userData.aptoNumber, 
       userData.floor, 
       userData.leader, 
       userData.login, 
@@ -123,8 +136,8 @@ export class UsersController {
 
   // Metodo para eliminar un usuario
   @Delete('/deleteuser')
-  async deleteUser(@Body() userData: { userId: number }): Promise<any> {
-    let result = await this.usersService.deleteUser(userData.userId);
+  async deleteUser(@Body() userData: { userId: number | string }): Promise<any> {
+    let result = await this.usersService.deleteUser(userData.userId.toString()); // Convertimos a string
 
     let response = {};
     if (result) {
@@ -143,5 +156,4 @@ export class UsersController {
 
     return response;
   }
-
 }

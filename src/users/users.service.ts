@@ -14,13 +14,11 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  // Obtener un usuario por su ID
-  async findUser(userId: number): Promise<User | null> {
-
+  // Obtener un usuario por su ID (Cambiado userId a string)
+  async findUser(userId: string): Promise<User | null> {
     return await this.usersRepository.findOne({ 
       where: { id: userId } 
     });
-
   }
 
   async addUsers(
@@ -42,9 +40,9 @@ export class UsersService {
     return await this.usersRepository.save(newUser);
   }
 
-  // Editar un usuario
+  // Editar un usuario (Cambiado userId a string)
   async editUser(
-    userId: number,
+    userId: string,
     name: string, 
     email: string, 
     lastname: string, 
@@ -65,8 +63,8 @@ export class UsersService {
     return await this.findUser(userId);
   }
 
-  // Eliminar un usuario (lógico)
-  async deleteUser(userId: number): Promise<boolean> {
+  // Eliminar un usuario (lógico) (Cambiado userId a string)
+  async deleteUser(userId: string): Promise<boolean> {
     const result = await this.usersRepository.update(userId, { active: 0 });
     return (result.affected ?? 0) > 0;
   }
