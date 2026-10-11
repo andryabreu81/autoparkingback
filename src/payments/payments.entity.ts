@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../users/users.entity';
+import { PaymentMethod } from '../payment_methods/payment_methods.entity'; // Ajusta la ruta según tu estructura
 
 @Entity({ name: 'tb_parking_payments' })
 @Index('tb_parking_payments_user_period_idx', ['userId', 'paymentYear', 'paymentMonth'])
@@ -33,8 +34,17 @@ export class Payment {
   @Column({ name: 'payment_date', type: 'timestamp', default: () => 'now()' })
   paymentDate: Date;
 
-  @Column({ name: 'payment_method', type: 'varchar', length: 50 })
-  paymentMethod: string;
+  // --- NUEVOS CAMPOS PARA EL MÉTODO DE PAGO ---
+  @Column({ name: 'payment_method_id', type: 'int4' })
+  paymentMethodId: number;
+
+  @ManyToOne(() => PaymentMethod, { nullable: false })
+  @JoinColumn({ 
+    name: 'payment_method_id', 
+    foreignKeyConstraintName: 'tb_parking_payments_tb_payment_methods_fk' 
+  })
+  paymentMethod: PaymentMethod;
+  // -------------------------------------------
 
   @Column({ name: 'reference_number', type: 'varchar', length: 100, nullable: true })
   referenceNumber: string | null;

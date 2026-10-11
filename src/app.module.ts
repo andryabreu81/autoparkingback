@@ -10,6 +10,8 @@ import { VehicletypesModule } from './vehicletypes/vehicletypes.module';
 import { UsersModule } from './users/users.module';
 import { PaymentsModule } from './payments/payments.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PaymentMethodsModule } from './payment_methods/payment_methods.module';
+import { LoginModule } from './login/login.module';
 
 //entities
 import { Brand } from './brands/brands.entity';
@@ -18,21 +20,40 @@ import { VehicleType } from './vehicletypes/vehicletypes.entity';
 import { Model } from './models/models.entity';
 import { Login } from './login/login.entity';
 import { Vehicle } from './vehicles/vehicles.entity';
-import { LoginModule } from './login/login.module';
-
+import { PaymentMethod } from './payment_methods/payment_methods.entity';
+import { Payment } from './payments/payments.entity';
 
 @Module({
-  imports: [BrandsModule, ModelsModule, VehiclesModule, VehicletypesModule, UsersModule, PaymentsModule, LoginModule, TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '20111981',
-    database: 'db_autoparking',
-    entities: [Brand, User, VehicleType, Model, Vehicle, Login], // O [__dirname + '/**/*.entity{.ts,.js}']
-    synchronize: false, // Mantenlo en false si la tabla ya existe
-  })],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    BrandsModule, 
+    ModelsModule, 
+    VehiclesModule, 
+    VehicletypesModule, 
+    UsersModule, 
+    PaymentsModule, 
+    LoginModule, 
+    PaymentMethodsModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: '20111981',
+      database: 'db_autoparking',
+      entities: [
+        Brand, 
+        User, 
+        VehicleType, 
+        Model, 
+        Vehicle, 
+        Login, 
+        PaymentMethod,
+        Payment
+      ], 
+      synchronize: false,
+    }), 
+  ],
+  controllers: [AppController], // <--- 3. Quitamos PaymentMethodsController de aquí
+  providers: [AppService],       // <--- 4. Quitamos PaymentMethodsService de aquí
 })
 export class AppModule { }
