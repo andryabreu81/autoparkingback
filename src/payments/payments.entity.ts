@@ -35,8 +35,8 @@ export class Payment {
   paymentDate: Date;
 
   // --- NUEVOS CAMPOS PARA EL MÉTODO DE PAGO ---
-  @Column({ name: 'payment_method_id', type: 'int4' })
-  paymentMethodId: number;
+  @Column({ name: 'payment_method_id', type: 'bigint' })
+  paymentMethodId: string;
 
   @ManyToOne(() => PaymentMethod, { nullable: false })
   @JoinColumn({ 

@@ -15,6 +15,8 @@ export class PaymentsService {
     console.log('Obteniendo lista de pagos...');
     console.log('Repositorio de pagos:', this.paymentRepository);
     
-    return await this.paymentRepository.find();
+    return await this.paymentRepository.find({
+      relations: ['paymentMethod', 'user'],
+    });
   }
 }
